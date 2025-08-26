@@ -1,34 +1,30 @@
-import string 
-import random
+#import library 
+import qrcode
+import requests
 
-def generate_otp():
+#create variable and source - url
+url = 'https://github.com/Born-A-Bot/My-PyPort-QRCode' 
 
-    #generate alphabet dynamically
-    alphaChar = string.ascii_lowercase
-    numList = ['0', '1', '2', '3','4','5','6','7','8','9']
+#create image
+img = qrcode.make(url)
 
-    #shuffle the lists to return a different value
-    shuffledAlpha = random.sample(alphaChar, len(alphaChar))
-    shuffledNums = random.sample(numList, len(numList))
+#save the image and assign a name to the file
+img.save("C://Users/seren/Documents/scrooples/pyport/qr_code/git_py.png")
 
-    #retrieve seven letters and three number
-    otp = shuffledAlpha[0:3] + shuffledNums[0:2]    
-    otp_shuffle = random.sample(otp, len(otp))
-    
-    print(f"You're one time password is: {otp_shuffle}")
-    
-    #if __name__ == "__main__":
+#generate message when task complete, qrcode generated and saved
+print('image saved')
 
-    #create an instance of the function
-generate_otp()
+#cybersecurity - set redirect parameter to prevent user connection from being hijacked, redirected
+response = requests.get(url, allow_redirects=False)
 
+#display status of connection, response
+print(f"Status Code: {response.status_code}")
 
-
-
-
-
-
-
+#notification, no redirect
+if "Location" in response.headers:
+    print(f"Redirect Location: {response.headers['Location']}")
+else:
+    print("No redirect decteced.")
 
 
 
